@@ -75,7 +75,7 @@
 		    }
 		};
 
-		draw = function() {
+		void draw = function() {
 		    background(0, 0, 0);
 		    scale(1);
 		    tree.d();
@@ -157,9 +157,9 @@
 		    }
 
 
-		};
+		}
 
-		mousePressed = function(){
+		void mousePressed = function(){
 		    if(mouseButton === RIGHT && zoom === false){
 		    oldX = mouseX+200/5;
 		    oldY = mouseY;
@@ -185,9 +185,16 @@
 			oldY = 0;
 			zoom = false;
 		    }
-		};
+		}
 
-		keyPressed = function(){
+		void keyPressed = function(){
+		    if(!fast){
+		    for(var i = 0; i < ps.length; i++){
+			ps[i].s *= 12;    
+		    }
+		    rate = 60;
+		    fast = true;
+		    }
 		    if(keyCode - 48 === 1){
 			c = "rand";
 		    }
@@ -197,18 +204,8 @@
 		    if(keyCode - 48 === 3){
 			c = "white";
 		    }
-		};
-
-		keyPressed = function(){
-		    if(!fast){
-		    for(var i = 0; i < ps.length; i++){
-			ps[i].s *= 12;    
-		    }
-		    rate = 60;
-		    fast = true;
-		    }
-		};
-		keyReleased = function(){
+		}
+		void keyReleased = function(){
 		    if(fast){
 		    for(var i = 0; i < ps.length; i++){
 			ps[i].s /= 12;    
@@ -216,7 +213,7 @@
 		    rate = 1;
 		    fast = false;
 		    }  
-		};
+		}
 
 		</script>
 		<title>kalcoslinder portfolio</title>
