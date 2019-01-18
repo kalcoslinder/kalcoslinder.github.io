@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
+<<<<<<< HEAD
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="Content-Style-Type" content="text/css">
@@ -251,4 +252,239 @@
 <p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>&lt;/body&gt;</span></p>
 <p class="p1"><span class="s1">&lt;/html&gt;</span></p>
 </body>
+=======
+	<head>
+		<link rel = "stylesheet" type = "text/css" href = "/css/main.css" >
+		<script src="processing.js"></script>
+		<script type="application/processing" data-processing-target="pjs">
+		void setup() {
+		  size(400, 400);
+		}
+		stroke(255,255,255);
+		var xs = []; // 398 - xs[col] = row
+		frameRate(30);
+		var speed = 0.1;
+		var c = "rand";
+		var pN;
+		var ps = [];
+		var rate = 1;
+		var oldX = 0; 
+		var oldY = 0;
+		var zoom = false;
+		var fast = false;
+		for(var i = 0; i < 400; i++){
+		    xs.push(400-2);
+		}
+
+		var p = function(){
+		    this.x = round(random(0,400));
+		    this.y = 0;
+		    if(fast){
+			this.y = random(0,-6);
+		    }
+		    this.s = round(random(1*speed,100*speed))/10;
+		    if(this.s < 0.1){
+			this.s = 0.1;
+		    }
+		    if(c === "dirt"){
+		    this.c = color(random(65,95),random(10,50),random(0,20));
+		    }
+		    if(c === "rand"){
+		    this.c = color(random(0,255),random(0,255),random(0,255));
+		    }
+		    if(c === "red"){
+			this.c = color(255, 0, 0);
+		    }
+		    if(c === "white"){
+			this.c = color(255,255,255);
+		    }
+		};
+		p.prototype.draw = function() {
+		    stroke(this.c);
+		    point(this.x,this.y);
+		    this.y+=this.s;
+		};
+
+		var isFull = function(val){
+		    if(val < -2){
+		    return true;    
+		    }
+		};
+
+		var tree = {
+		    x: 100,
+		    y: 300,
+		    ys: [],
+		    width: 200,
+		    height: 100,
+		    d: function() {
+			noStroke();
+			fill(105, 64, 18);
+			rect(this.x+80,300,40,100);
+			fill(63, 89, 53);
+			triangle(this.x,300+60,this.x+200,300+60,this.x+100,225);
+			triangle(this.x+25,300,this.x+175,300,this.x+100,200);
+			triangle(this.x+50,300-50,this.x+150,300-50,this.x+100,175);
+		    }
+		};
+
+		draw = function() {
+		    background(0, 0, 0);
+		    scale(1);
+		    tree.d();
+		    text("left click: make snow",3,12);
+		    text("right click: zoom in/out",3,24);
+		    text("press any key: create storm",3,36);
+
+		    for(var i = 0; i < ps.length; i++){
+			if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
+			    ps[i].y = xs[ps[i].x] + 1;
+			    ps[i].s = 0;
+			    xs[ps[i].x]--;
+
+			    var r = round(random(0,2));
+			    var chi = -1;
+
+			    if(r === 0){
+				//check left 
+				chi = -1;
+
+			    }
+			    if(r === 1){
+				//check right
+				chi = 1;
+			    }
+			    var run = false;
+			    for( var a = 0; a < 2; a++){
+				if((chi === -1 && ps[i].x > 1)){
+				    run = true;
+				}
+				if(chi === 1 && ps[i].x < 399){
+				    run = true;
+				}
+				if (run && 400-ps[i].y - (398 - xs[ps[i].x + chi]) > 1 ){ //2 higher than left or right
+					xs[ps[i].x] ++;
+					ps[i].x += chi;
+					ps[i].y++;
+					ps[i].s = random(2,10);
+
+				}
+
+				chi*=-1;
+			    }
+			}
+
+			ps[i].draw();
+		    }
+		    if(!xs.every(isFull)){
+			while(speed < rate){
+			    pN = new p();
+			    if(xs[pN.x] >= -2){
+				ps.push(pN);
+			    }
+			    fill(255, 255, 255);
+			    speed++;
+			}
+			speed = 0.1;
+		    }
+		    if(mouseIsPressed){
+			if(!zoom){
+			    for(var b = -20; b < 20; b++){
+				pN = new p();
+				pN.x = mouseX-oldX;
+				pN.y = mouseY-oldY;
+				pN.s = random(10,20);
+				pN.x += b;
+				ps.push(pN);
+			    }
+			}
+			if(zoom){
+			    for(var b = -2; b < 2; b++){
+				pN = new p();
+				pN.x = round(oldX + (mouseX-oldX)/5)-33+b;
+				pN.y = round(oldY + (mouseY + 200 -oldY)/5)-2;
+				pN.s = random(2,5);
+				ps.push(pN);
+			    }
+			}
+		    }
+
+
+		};
+
+		mousePressed = function(){
+		    if(mouseButton === RIGHT && zoom === false){
+		    oldX = mouseX+200/5;
+		    oldY = mouseY;
+		    pushMatrix();
+
+		    if(mouseY < 400-67){
+		    translate(mouseX,mouseY-200);
+		    scale(5);
+		    translate(-mouseX,-mouseY);
+
+		    }
+
+		    else{
+			translate(mouseX,400-67-200);
+		    scale(5);
+		    translate(-mouseX,-(400-53.4));
+		    }
+		    zoom = true;
+		    }
+		    else if(mouseButton === RIGHT && zoom === true){
+			popMatrix();
+			oldX = 0;
+			oldY = 0;
+			zoom = false;
+		    }
+		};
+
+		keyPressed = function(){
+		    if(keyCode - 48 === 1){
+			c = "rand";
+		    }
+		    if(keyCode - 48 === 2){
+			c = "red";
+		    }
+		    if(keyCode - 48 === 3){
+			c = "white";
+		    }
+		};
+
+		keyPressed = function(){
+		    if(!fast){
+		    for(var i = 0; i < ps.length; i++){
+			ps[i].s *= 12;    
+		    }
+		    rate = 60;
+		    fast = true;
+		    }
+		};
+		keyReleased = function(){
+		    if(fast){
+		    for(var i = 0; i < ps.length; i++){
+			ps[i].s /= 12;    
+		    }
+		    rate = 1;
+		    fast = false;
+		    }  
+		};
+
+		</script>
+		<title>kalcoslinder portfolio</title>
+	</head>
+	<body>
+		<canvas id="pjs"> </canvas>
+		
+		
+		<footer>
+    		<ul>
+        		<li><a href="mailto:christopherwerry@gmail.com">email</a></li>
+			<li><a href="https://http://khanacademy.org/profile/crustyoucantrust/projects">khanacademy</a></li>
+        		<li><a href="https://github.com/kalcoslinder/games"></a></li>
+			</ul>
+		</footer>
+	</body>
+>>>>>>> parent of 5fd0a50... Update index.html
 </html>
