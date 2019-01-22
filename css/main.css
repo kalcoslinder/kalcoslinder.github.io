@@ -1,4 +1,9 @@
-div.element1 {
+head {
+    text-decoration: none;
+    color: #999;
+}
+    
+}div.element1 {
     position: relative;
     left:0px;
     width: 200px;
@@ -13,6 +18,8 @@ div.element2 {
 body {
     margin: 60px auto;
     width: 70%;
+    text-decoration: none;
+    color: #999;
 }
 nav ul, footer ul, header ul{
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
