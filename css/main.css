@@ -1,7 +1,14 @@
 div.element1 {
     position: relative;
-    left:200px;
-    
+    left:0px;
+    width: 200px;
+    height: 200px;
+}
+div.element2 {
+    position: relative;
+    left:300px;
+    width: 200px;
+    height: 200px;
 }
 body {
     margin: 60px auto;
