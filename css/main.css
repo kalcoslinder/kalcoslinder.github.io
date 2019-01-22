@@ -1,6 +1,5 @@
 div.element1 {
-    position: absolute;
-    top:100 px;
+    position: relative;
     left:200 px;
     
 }
