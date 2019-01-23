@@ -122,7 +122,7 @@ draw = function() {
     }
 };
 
-mousePressed = function(){
+void mousePressed(){
     if(mouseButton === RIGHT && zoom === false){
     oldX = mouseX;
     oldY = mouseY;
@@ -145,17 +145,17 @@ mousePressed = function(){
     }
     speed = 20;
     rate = 12;
-};
+}
 
-mouseReleased = function(){
+void mouseReleased(){
     for(var i = 0; i < ps.length; i++){
         ps[i].s /= 12;    
     }
     speed = random(0.1,1);
     rate = 1;
-};
+}
 
-keyPressed = function(){
+void keyPressed(){
     if(keyCode - 48 === 1){
         c = "rand";
     }
@@ -170,7 +170,7 @@ keyPressed = function(){
     
     
     }
-};
+}
 
 
 
