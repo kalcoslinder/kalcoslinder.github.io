@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html>
 	<head>
 		kalcoslinder portfolio
 		<header>
