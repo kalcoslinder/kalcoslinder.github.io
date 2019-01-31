@@ -1,4 +1,4 @@
-<html>
+
 	<head>
 		kalcoslinder portfolio
 		<header>
