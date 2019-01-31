@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 	<head>
 		kalcoslinder portfolio
 		<header>
@@ -35,3 +33,4 @@
         		<li><a href="https://github.com/kalcoslinder/kalcoslinder.github.io">github</a></li>
 			</ul>
 		</footer>
+	</body>
