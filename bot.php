@@ -1,4 +1,3 @@
-</script>	
 	</head>
 	<body>
 		
@@ -18,3 +17,5 @@
 			</ul>
 		</footer>
 	</body>
+</body>
+</html>
