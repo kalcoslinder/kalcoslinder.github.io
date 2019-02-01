@@ -1,1 +1,2 @@
-Yo yo, this is a test, fool, ya fool!
+Hey if this works then I'll really be impressed!
+<img src="tree.png"/>
