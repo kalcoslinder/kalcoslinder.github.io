@@ -12,10 +12,25 @@
 		<script src="processing.js"></script>
 		<script type="application/processing" data-processing-target="pjs">
 		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			
+		$(document).ready(function(){
+			$("button").click(function(){
+				$("#div1").load( "demo_test.html" );
+				$("jscript").attr("data-processing-sources","basic-example.pde");
+			});
+		});
+		
+		<div id="div1"></div>
+
+		<button>Get External Content</button>	
+			
+		</script>
 		<title>kalcoslinder portfolio</title>
 	</head>
 	<body>
-		<canvas data-processing-sources="you-win.pde"></canvas>
+		<canvas data-processing-sources="you-win.pde" id="jscript"></canvas>
 		
 		<a href="you-win.html"><img src = "images/you-win.png" width = "200" height = "200" /></a>
 		
