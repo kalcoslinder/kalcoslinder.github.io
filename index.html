@@ -20,11 +20,15 @@
 				$("#div1").load( "demo_test.html" );
 				$("#jscript").attr("data-processing-sources","basic-example.pde");
 				$("#you-win").attr("src","images/tree.png");
-				document.getElementById("jscript").setAttribute("data-processing-sources","basic-example.pde");
+				
 			});
 		});
 		</script>
-		
+		document.getElementById("jscript").setAttribute("data-processing-sources","basic-example.pde");
+		document.getElementById("jscriptdiv").innerHTML="<canvas data-processing-sources="basic-example.pde"></canvas>";
+		<script>
+				
+		</script>
 		<div id="div1"></div>
 
 		<button>Get External Content</button>	
@@ -32,8 +36,9 @@
 		<title>kalcoslinder portfolio</title>
 	</head>
 	<body>
+		<div id="jscriptdiv">
 		<canvas data-processing-sources="you-win.pde" id="jscript"></canvas>
-		
+		</div>
 		<a href="you-win.html"><img src = "images/you-win.png" width = "200" height = "200" id = "you-win"/></a>
 		
 		<a href="page1.html"><img src = "images/tree.png" width = "200" height = "200" /></a>
