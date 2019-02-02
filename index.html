@@ -14,20 +14,39 @@
 		</script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script>
+		var oldcanv = document.getElementById('jscript');
+		document.removeChild(oldcanv)
+
+		var canv = document.createElement('canvas');
+		canv.id = 'jscript';
+		document.body.appendChild(canv);
+		</script>
+		
+		<script>
 		$(document).ready(function(){
 			$("button").click(function(){
 				$("#div1").load( "demo_test.html" );
-				$("#jscript").attr("data-processing-sources","basic-example.pde");
+				$("canvas #jscript").attr("data-processing-sources","basic-example.pde");
+				//Reload canvas here
 				$("#you-win").attr("src","images/tree.png");
+				
+				var oldcanv = document.getElementById('jscript');
+				document.removeChild(oldcanv)
+
+				var canv = document.createElement('canvas');
+				canv.id = 'jscript';
+				document.body.appendChild(canv);
 				
 			});
 		});
 		</script>
 		
 		<script>
-		document.getElementById("jscript").setAttribute("data-processing-sources","basic-example.pde");
+		document.getElementById('jscript').setAttribute('data-processing-sources','basic-example.pde');
+			//reload canvas here
 		document.getElementById('jscriptdiv').innerHTML='<canvas data-processing-sources="basic-example.pde"></canvas>';		
 		</script>
+		
 		
 		<div id="div1"></div>
 
