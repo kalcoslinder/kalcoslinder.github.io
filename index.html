@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		kalcoslinder portfolio 3
+		kalcoslinder portfolio 1
 		<header>
 		<ul>
 			
@@ -18,6 +18,8 @@
 		<script>
 		$(document).ready(function(){
 			$("button").click(function(){
+				var oldcanv = document.getElementById('test');
+				document.removeChild(oldcanv);
 				/*
 				$("#div1").load( "demo_test.html" );
 				$("canvas #jscript").attr("data-processing-sources","basic-example.pde");
@@ -33,8 +35,7 @@
 		});
 		</script>
 		<script>
-				var oldcanv = document.getElementById('jscript');
-				document.removeChild(oldcanv);
+				
 		
 			/*
 		document.getElementById('jscript').setAttribute('data-processing-sources','basic-example.pde');
@@ -42,6 +43,8 @@
 		document.getElementById('jscriptdiv').innerHTML='<canvas data-processing-sources="basic-example.pde"></canvas>';		
 		*/
 		</script>
+		
+		<canvas width = "200" height = "200" id = "test"></canvas>
 		
 		<div>
 		<button>Get External Content</button>	
