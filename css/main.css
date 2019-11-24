@@ -9,6 +9,7 @@ html {
     padding: 0px;
     list-style: none;
     font-weight: bold;
+    scroll-behavior: smooth;
 }
     
 }div.element1 {
