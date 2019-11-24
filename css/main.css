@@ -2,7 +2,7 @@ html {
     text-decoration: none;
     color: #999;
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
-    margin: 60px auto;
+    margin: 40px auto;
     width: 70%;
     text-decoration: none;
     color: #999;
@@ -13,7 +13,7 @@ html {
     
 }div.element1 {
     position: relative;
-    left:0px;
+    left:20px;
     width: 200px;
     height: 200px;
 }
