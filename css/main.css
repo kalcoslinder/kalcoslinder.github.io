@@ -92,7 +92,9 @@ ul.posts li {
   padding-top: 102px;
 }
 .vertical-menu {
-  width: 200px; /* Set a width if you like */
+  width: 200px;
+  height: 150px;
+  overflow-y: auto;
 }
 
 .vertical-menu a {
