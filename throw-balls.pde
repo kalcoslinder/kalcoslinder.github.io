@@ -269,7 +269,7 @@ draw = function() {
 
 
 
-var mouseReleased = function() {
+void mouseReleased() {
     speedX = speedMultiplier*(mousePos[mousePos.length-1][0] - mousePos[0][0]);
     speedZ = speedMultiplier*(-1*mousePos[mousePos.length-1][1] + mousePos[0][1]);
     var Wzi = camHeight*camDist/(mousePos[0][1]-height/2);
@@ -282,11 +282,11 @@ var mouseReleased = function() {
       
 }; 
 
-var mouseOut = function() {
+void mouseOut() {
     mousePos.length = 0; 
 }; 
 
-var mousePressed = function() {
+void mousePressed() {
     randColor = color(random(0,2)*255,random(0,2)*255,random(0,2)*255);
    
     mousePos.length = 0;
