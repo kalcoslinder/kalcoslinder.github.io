@@ -46,9 +46,10 @@
 			
 		</ul>	
 		<script>
-			var ChangeSong = function(element){
+			var ChangeSong = function(element,song){
 				document.getElementsByClass("active").className = "inactive";
 				element.className = "active";
+				document.getElementById('player').src = song;
 			};
 		</script>
 		<footer>
@@ -62,7 +63,7 @@
 			 <a href= "#" class="active">Ghost</a>
 			 
 			 <a href = "#" onclick = "document.getElementById('player').src = 'Ascend.mp3';"> Ascend</a>
-			 <a href = "#" onclick = "ChangeSong(this);"> Ascend</a>
+			 <a href = "#" onclick = "ChangeSong(this,'Ascend.mp3');"> Ascend</a>
 				
 			</div>
 			</div>	
