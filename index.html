@@ -46,11 +46,11 @@
 			
 		</ul>	
 		<script>
-			var ChangeSong = function(element,song){
+			function ChangeSong(element,song){
 				document.getElementByClassName("active").className = "inactive";
 				element.className = "active";
 				document.getElementById('player').src = song;
-			};
+			}
 		</script>
 		<footer>
 			<div class="sticky">
