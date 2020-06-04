@@ -47,7 +47,7 @@
 		</ul>	
 		<script>
 			var ChangeSong = function(element,song){
-				document.getElementsByClass("active").className = "inactive";
+				document.getElementByClassName("active").className = "inactive";
 				element.className = "active";
 				document.getElementById('player').src = song;
 			};
@@ -60,9 +60,8 @@
 			<audio controls autoplay = "true" id = "player" src = "Ghost.mp3" style='width:250px;margin:0px;padding:0px'>
 			</figure>
 			<div class="vertical-menu" style='float:center'>
-			 <a href= "#" class="active">Ghost</a>
-			 
-			 <a href = "#" onclick = "document.getElementById('player').src = 'Ascend.mp3';"> Ascend</a>
+			<a href= "#" onclick = "this.className='active';document.getElementById('player').src = 'Ghost.mp3'document.getElementByClassName("active").className = 'inactive';">Ghost</a>
+			 <a href = "#" class="active" onclick = "document.getElementById('player').src = 'Ascend.mp3';"> Ascend</a>
 			 <a href = "#" onclick = "ChangeSong(this,'Ascend.mp3');"> Ascend</a>
 				
 			</div>
