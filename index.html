@@ -60,10 +60,9 @@
 			<audio controls autoplay = "true" id = "player" src = "Ghost.mp3" style='width:250px;margin:0px;padding:0px'>
 			</figure>
 			<div class="vertical-menu" style='float:center'>
-			 <a href= "#" onclick = "ChangeSong(this,'Ghost.mp3');">Ghost</a>
-			 <a href = "#" class="active" onclick = "document.getElementById('player').src = 'Ascend.mp3';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}"> Ascend</a>
-			 <a href = "#" onclick = "document.getElementById('player').src = 'Ascend.mp3'; this.className='active';"> Ascend</a>
-				
+			 
+			<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Ghost.mp3';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Ghost</a>				
+			 <a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Ascend.mp3';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Ascend</a>				
 			</div>
 			</div>	
 		</div>
