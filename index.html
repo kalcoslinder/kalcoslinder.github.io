@@ -61,7 +61,7 @@
 			</figure>
 			<div class="vertical-menu" style='float:center'>
 			 <a href= "#" onclick = "ChangeSong(this,'Ghost.mp3');">Ghost</a>
-			 <a href = "#" class="active" onclick = "document.getElementById('player').src = 'Ascend.mp3';document.getElementsByClassName('active').className = 'inactive';"> Ascend</a>
+			 <a href = "#" class="active" onclick = "document.getElementById('player').src = 'Ascend.mp3';var x = document.getElementsByClassName('active').className; for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}"> Ascend</a>
 			 <a href = "#" onclick = "document.getElementById('player').src = 'Ascend.mp3'; this.className='active';"> Ascend</a>
 				
 			</div>
