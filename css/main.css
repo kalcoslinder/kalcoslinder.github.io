@@ -95,11 +95,6 @@ ul.posts li {
 .sticky + .content {
   padding-top: 102px;
 }
-.vertical-menu {
-  width: 200px;
-  height: 150px;
-  overflow-y: auto;
-}
 
 .vertical-menu a {
   background-color: #eee; /* Grey background color */
