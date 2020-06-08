@@ -10,6 +10,7 @@ var launch = false;
 var ballDist = 100;
 var ballHeight = 20;
 var speedYVel = 2;
+var speed = 0.1;
 
 var Point = function(Wx,Wy,Wz)
 {
@@ -177,23 +178,6 @@ draw = function() {
 };
 
 
-
-
-var speed = 0.1;
-void mouseDragged() {
-    
-    for(var i = 0; i < mousePos.length; i++)
-    {
-    strokeWeight(3);
-    stroke(237, 150, 236);
-    point(mousePos[i][0],mousePos[i][1]);
-    stroke(0, 0, 0);    
-    }
-    if(debugMenu)
-    {
-    line(mousePos[0][0],mousePos[0][1],mousePos[mousePos.length-1][0],mousePos[mousePos.length-1][1]);
-    }
-}; 
 
 void mouseReleased() {
     speedX = speed*(mousePos[mousePos.length-1][0] - mousePos[0][0]);
