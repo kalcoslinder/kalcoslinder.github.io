@@ -256,5 +256,5 @@ var mouseOut = function() {
 };
 
 var mousePressed = function() {
-    mousePos.length = 0;
+    //mousePos.length = 0;
 };
