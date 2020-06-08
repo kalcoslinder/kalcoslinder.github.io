@@ -11,18 +11,6 @@ var ballDist = 100;
 var ballHeight = 20;
 var speedYVel = 2;
 
-void keyPressed() {
-    if(keyCode === 32)
-    {
-        if(debugMenu === true){
-            debugMenu = false;
-        }
-        else{
-            debugMenu = true; 
-        }
-    }
-};
-
 var Point = function(Wx,Wy,Wz)
 {
     this.Wx = Wx;
@@ -186,49 +174,13 @@ draw = function() {
     mBall.updateBall();
     mBall.checkBall();
     mBall.drawBall();
-
-    
-    //DEBUG
-    fill(84, 194, 80);
-    rect(width-113,height-50,100,20,5);
-    fill(0, 0, 0);
-    textSize(15);
-    text("Debug: " + debugMenu,width-105,height-35);
-    if(debugMenu)
-    {
-        fill(0, 0, 0);
-        textSize(10);
-        text("mBall.center.speedZ: " + nfc(mBall.center.speedZ,1,2),15,15);
-        text("mBall.center.speedY: " + nfc(mBall.center.speedY,1,2),15,30);
-        text("mBall.center.speedX: " + nfc(mBall.center.speedX,1,2), 15,45);
-        text("mBall.height: " + nfc(mBall.height,1,2) ,15,60);
-        
-        text("speedX: " + nfc(speedX,1,2),145,15);
-        text("speedZ: " + nfc(speedZ,1,2),145,30);
-        text("speedY: " + nfc(speedY,1,2) ,145,45);
-        text("ball.center.speedY: " + nfc(ball.center.speedY,1,2), 145,60);
-        
-        
-        text("hole.center.Wx: " + nfc(hole.center.Wx,1,2),265,15);
-        text("hole.center.Wy: " + nfc(hole.center.Wy,1,2),265,30); 
-        text("hole.center.Sy: " + nfc(hole.center.Sy,1,2),265,45); 
-        text("launch: " + launch,265,60); 
-        
-        for(var i = 0; i < 35; i++)
-        {
-            for( var j = 0 ; j < 25; j++)
-            {
-                drawPoint(-750+50*i,0,50*j);
-            }
-        }
-     }
 };
 
 
 
 
 var speed = 0.1;
-var mouseDragged = function() {
+void mouseDragged() {
     
     for(var i = 0; i < mousePos.length; i++)
     {
@@ -250,11 +202,3 @@ void mouseReleased() {
     mousePos.length = 0;
        
 }; 
-
-var mouseOut = function() {
-    mousePos.length = 0; 
-};
-
-var mousePressed = function() {
-    //mousePos.length = 0;
-};
