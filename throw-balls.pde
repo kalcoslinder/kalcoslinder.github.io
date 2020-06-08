@@ -243,7 +243,7 @@ var mouseDragged = function() {
     }
 }; 
 
-var mouseReleased = function() {
+void mouseReleased() {
     speedX = speed*(mousePos[mousePos.length-1][0] - mousePos[0][0]);
     speedY = speedYVel*speed*(-1*mousePos[mousePos.length-1][1] + mousePos[0][1]);
     speedZ = speed*(-1*mousePos[mousePos.length-1][1] + mousePos[0][1]);
