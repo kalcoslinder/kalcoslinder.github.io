@@ -170,6 +170,7 @@ draw = function() {
         mousePos.push([mouseX,mouseY]);    
         if(mousePos.length > 10) {
             mousePos.splice(0, 1);    
+	    text("YO",0,20);
         } 
     }
     else{
