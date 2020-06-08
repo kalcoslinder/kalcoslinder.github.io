@@ -11,7 +11,7 @@ var ballDist = 100;
 var ballHeight = 20;
 var speedYVel = 2;
 
-var keyPressed = function() {
+void keyPressed() {
     if(keyCode === 32)
     {
         if(debugMenu === true){
