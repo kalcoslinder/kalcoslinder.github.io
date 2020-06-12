@@ -5,12 +5,11 @@ html {
     margin: 40px auto;
     width: 70%;
     text-decoration: none;
-    color: #999;
+    color: #111;
     padding: 0px;
     list-style: none;
     font-weight: bold;
     scroll-behavior: smooth;
-    color: #111; /* Black*/
 }
     
 }div.element1 {
