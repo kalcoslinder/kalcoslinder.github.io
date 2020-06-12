@@ -1,6 +1,6 @@
 html {
     text-decoration: none;
-    color: #999;
+   
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
     margin: 40px auto;
     width: 70%;
@@ -10,7 +10,7 @@ html {
     list-style: none;
     font-weight: bold;
     scroll-behavior: smooth;
-    background-color: #111; /* Black*/
+    color: #111; /* Black*/
 }
     
 }div.element1 {
