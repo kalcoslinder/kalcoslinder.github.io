@@ -40,7 +40,8 @@
 				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Jamaica.m4a';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Deliverance</a>				
 				</div>
 			<div/>
-			<div class="sidenav" style="left:200">
+			<div class="sidenav" id="rightnav">
+				<script>document.getElementsById("rightnav").left = -1*window.innerWidth+document.getElementsById("rightnav").width;</script>	
 			<ul style='list-style-type: none>
 			  	<div style='text-align:center'>
 				<li> kalcoslinder portfolio 3.0 </li>
