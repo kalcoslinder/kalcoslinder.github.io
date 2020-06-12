@@ -1260,7 +1260,7 @@ drawApartment = function(){
         stroke(0, 0, 0);
         fill(39,79,2);
         for(var i = 0; i < 10; i++){
-            arc(155+i*10,128-10,10,10,0,180);
+            arc(155+i*10,128-10,10,10,0,PI);
         }
         //Call box
         fill(97, 97, 97);
