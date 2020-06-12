@@ -24,29 +24,13 @@
 		<br>
 		<br>
 	
-		<ul style = "list-style-type:none; margin:0; padding:none">
-			
-			<div style="float:center"; display:block>
-			
-				<li>
-				<canvas data-processing-sources="you-win.pde" id="jscript"></canvas>
-				</li>
-				<li>
-				<canvas data-processing-sources="stickman.pde" id="jscript"></canvas>
-				</li>
-				<li>
-				<canvas data-processing-sources="throw-balls.pde" id="jscript"></canvas>
-				</li>
-			</div>
-			
-			
-		</ul>	
+		
 		<footer>
 			<div class="sticky">
 		<div class="header" id="myHeader">
 			<div class="sidenav">
 			<figure>
-			<audio controls visible = false autoplay = true id = "player" style='width:100px;margin:0px;padding:0px'>
+			<audio controls visible = false autoplay = true id = "player" style='width:200px;margin:0px;padding:0px'>
 			</figure>
 				<div class="vertical-menu" style='text-align:center'>		 
 				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Ghost.mp3';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Ghost</a>				
@@ -68,5 +52,22 @@
 		</div>
 	</div>	
 	</footer>
+							       <ul style = "list-style-type:none; margin:0; padding:none">
+			
+			<div style="float:center"; display:block>
+			
+				<li>
+				<canvas data-processing-sources="you-win.pde" id="jscript"></canvas>
+				</li>
+				<li>
+				<canvas data-processing-sources="stickman.pde" id="jscript"></canvas>
+				</li>
+				<li>
+				<canvas data-processing-sources="throw-balls.pde" id="jscript"></canvas>
+				</li>
+			</div>
+			
+			
+		</ul>	
 	</body>
 </html>
