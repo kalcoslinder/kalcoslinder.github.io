@@ -41,7 +41,14 @@
 				</div>
 			<div/>
 			<div class="sidenav" id="rightnav" style='float:right;text-align:right'>
-				<script>document.getElementsById("rightnav").width = -1*document.body.clientWidth+document.getElementsById("rightnav").width;</script>	
+				<script>
+					var nav = document.getElementsById("rightnav");
+					
+					
+					nav.style.width = -1*document.body.clientWidth+nav.style.width;
+					nav.style.padding-left = document.body.clientWidth-nav.style.width;
+					
+				</script>	
 			<ul style='list-style-type: none>
 			  	<div style='text-align:center'>
 				<li> kalcoslinder portfolio 3.0 </li>
