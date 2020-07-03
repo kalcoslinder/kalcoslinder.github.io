@@ -1,5 +1,5 @@
 void setup() {
-		  size(400, 400);
+		  size(900, 900);
 		}
 		stroke(255,255,255);
 stroke(255,255,255);
