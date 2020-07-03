@@ -23,45 +23,6 @@
 		<br>
 		<br>
 		<br>
-	
-		
-		<footer>
-		<div class="sticky">
-		<div class="header" id="myHeader">
-			<div class="sidenav">
-			<figure>
-			<audio controls visible = false autoplay = true id = "player" style='width:200px;margin:0px;padding:0px'>
-			</figure>
-				<div class="vertical-menu" style='text-align:center;'>		 
-				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Ghost.mp3';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Ghost</a>				
-				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Ascend.mp3';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Ascend</a>			
-				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Algorithm.m4a';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Algorithm</a>				
-				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Haunting.m4a';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Haunting</a>				
-				<a href = "#" class="inactive" onclick = "document.getElementById('player').src = 'Jamaica.m4a';var x = document.getElementsByClassName('active'); for(var i=0;i<x.length;i++){ x[i].className= 'inactive';}this.className='active';"> Deliverance</a>				
-				</div>
-			<div/>
-			<div class="sidenav" id="rightnav" style='float:right;text-align:right'>
-				<script>
-					var nav = document.getElementsById("rightnav");
-					
-					
-					nav.style.width = -1*document.body.clientWidth+nav.style.width;
-					nav.style.padding-left = document.body.clientWidth-nav.style.width;
-					
-				</script>	
-			<ul style='list-style-type: none>
-			  	<div style='text-align:center'>
-		
-				<li><a href="mailto:christopherwerry@gmail.com"><image src="gmail.png"><br /></image></a></li>
-				<li><a href="https://www.khanacademy.org/profile/crustyoucantrust/projects"><image  width="50" height="50" src="khanacademy.png"><br /></image></a></li>
-				<li><a href="https://github.com/kalcoslinder/kalcoslinder.github.io"><image width="50" height="50" src = "github.png"><br /></image></a></li>
-				<li></li>
-			 	</div>
-			</ul>
-			</div>			
-		</div>
-	</div>	
-	</footer>
 		<ul style = "list-style-type:none; margin:0; padding:none">	
 			<div style="float:center; display:block">
 			
@@ -70,7 +31,7 @@
 				</li>
 				<li>
 				<button onclick="getElementById("jscript").width = window.innerWidth;  getElementById("jscript").height = window.innerHeight;">
-		
+				
 				<canvas data-processing-sources="stickman.pde" id="jscript"></canvas>
 			      	</button>	
 			      	</li>
@@ -82,4 +43,13 @@
 			
 		</ul>	
 	</body>
+	<footer>
+	<div class="sticky">
+		<div class="header" id="myHeader">
+			<div class="sidenav" id="rightnav" style='float:right;text-align:right'>
+			<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/805131229&color=%235f5e58&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/chris-werry" title="Chris Werry" target="_blank" style="color: #cccccc; text-decoration: none;">Chris Werry</a> · <a href="https://soundcloud.com/chris-werry/hallelujah" title="Hallelujah" target="_blank" style="color: #cccccc; text-decoration: none;">Hallelujah</a></div>
+			</div>			
+		</div>
+	</div>	
+	</footer>
 </html>
