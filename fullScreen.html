@@ -20,6 +20,10 @@
 		
 	</head>
 	<body>
-		<canvas data-processing-sources="you-win.pde" id="jscript" width = "900" height = "900"></canvas>
+		<canvas id = "game" data-processing-sources="you-win.pde" width = "900" height = "900"></canvas>
+		<script>
+			getElementById("game").width = window.innerWidth;  
+			getElementById("game").height = window.innerHeight;
+		</script>
 	</body>
 </html>
