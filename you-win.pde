@@ -54,7 +54,7 @@ var isFull = function(val){
 };
 var f = 30;
 draw = function() {
-    scale(6);
+    scale(12);
     background(0, 0, 0);
     if(!xs.every(isFull)){
         while(speed < speedLimit){
