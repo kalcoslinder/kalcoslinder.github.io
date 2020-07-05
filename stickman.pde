@@ -1,5 +1,5 @@
 void setup(){
-size(400,400);
+size(900,900);
 }
 var fight = function(Stickman1,Stickman2){};
 //Mouse Controls 
@@ -50,7 +50,8 @@ var transparency = 0;
 var mouseDown = true;
 }
 
-//**DRAW CUSTOM ARTWORK**//
+//**
+CUSTOM ARTWORK**//
 {
 var drawBackground = function(){
     //Sky
@@ -367,7 +368,7 @@ var drawMailbox = function(mailbox){
 {
 
 //**ART**//
-var lineDraw = function(arr1,arr2){
+var line(arr1,arr2){
     strokeWeight(2);
     line(arr1[0],arr1[1],arr2[0],arr2[1]);
 };var drawSkyline = function(){
@@ -1066,6 +1067,7 @@ door.prototype.draw = function() {
 //**DRAW**//
 cursor(ARROW);
 draw = function() {
+scale(2);
     //**DRAW ENVIRONMENT**//
     {
     pushMatrix();
