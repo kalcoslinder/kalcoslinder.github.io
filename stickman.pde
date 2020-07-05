@@ -1,5 +1,5 @@
 void setup(){
-size(900,900);
+size(800,800);
 }
 var fight = function(Stickman1,Stickman2){};
 //Mouse Controls 
