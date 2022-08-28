@@ -34,6 +34,11 @@ html {
     text-decoration: none;
     display: block;
 }
+
+.dropdown-content a:hover {background-color: white;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: grey;}
+
 }div.element1 {
     position: relative;
     left:20px;
