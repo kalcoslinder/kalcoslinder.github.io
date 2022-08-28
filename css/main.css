@@ -12,7 +12,13 @@ html {
     scroll-behavior: smooth;
     background-color: #111;
 }
-    
+    .dropbtn {
+    background-color: black;
+    color: white;
+    padding: #px;
+    font-size: #px;
+    border: none;
+}
 }div.element1 {
     position: relative;
     left:20px;
