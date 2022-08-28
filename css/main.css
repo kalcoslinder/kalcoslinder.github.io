@@ -19,6 +19,21 @@ html {
     font-size: #px;
     border: none;
 }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: lightgrey;
+    min-width: #px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: #px #px;
+    text-decoration: none;
+    display: block;
+}
 }div.element1 {
     position: relative;
     left:20px;
