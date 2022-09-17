@@ -1,5 +1,5 @@
 void setup(){
-size(800,800);
+size(1200,800);
 }
 stroke(255,255,255);
 var x = 0;
