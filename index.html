@@ -1,48 +1,108 @@
 <!DOCTYPE html>
+ <html>
+  <head>
+   <title>Kalcoslinder Portfolio</title>
+   <script type="text/javascript" src="processing-1.6.6.min.js"></script>
+   <script type="text/javascript" src="init.js"></script>
+   <link rel = "icon" type = "image/png" href = "/grim.png" sizes = "16x16">
+  </head>
+  <body>
+  <a href="stickman.html"><img src="LEFT.jpg"></a>
+   <script type="application/processing">
+   void setup(){
+    size(400,400);
+}
+stroke(255,255,255);
+var x = 0;
+var y = 0;
+var xs = [];
+frameRate(30);
+var speed = 0.1;
+var c = "rand";
+var sf = 6;
+var pN;
+var ps = [];
 
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@{{version-number}}/dist/amplitude.js"></script>
-		<link rel = "icon" type = "image/png" href = "/grim.png" sizes = "16x16" >
-			
-		
-		<link rel = "stylesheet" type = "text/css" href = "/css/main.css" >
-		<meta name="viewport" content="width=device-width, initial-scale=1" /> 
-		<script src="processing.js"></script>
-		<script src="header.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="application/processing" data-processing-target="pjs"></script>
-		<title>
-			kalcoslinder portfolio 3.021
-		</title>
-	</head>
-	<body>
-		<p>Stickman</p>
-		<audio autoplay = "true">
-		<source src="/music/Mess.m4a" type="audio/m4a">
-		<p>If you are reading this, it is because your browser does not support the audio element.     </p>
-		</audio>
-		<br>
-		<br>
-		<br>
-		<ul style = "list-style-type:none; margin:0; padding:none">	
-			<div style="display:block, margin-top: -50px;">
-			
-				<li>
-				<canvas data-processing-sources="throw-balls.pde" id="jscript" width = "100" height = "400"></canvas>
-				</li>
-				
-			</div>
-		</ul>
-	
-	
-					<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://arcade.makecode.com/---codeembed#pub:_hqvdvHhzzEEe" allowfullscreen="allowfullscreen" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe>
-<h2><a href="https://www.khanacademy.org/computer-programming/stickman/6520336525590528">Stickman</a></h2><script src="https://www.khanacademy.org/computer-programming/stickman/6520336525590528/embed.js?editor=no&buttons=yes&author=yes&embed=yes"></script><p>Made using: <a href="http://www.khanacademy.org/computer-programming">Khan Academy Computer Science</a></p>
-	
-		<a>link</a>
-	
-		</body>
-		<footer>
-	</footer>
-</html>
+for(var i = 0; i < 67; i++){
+    xs.push(67-2);
+}
+
+var p = function(){
+    this.x = parseInt(random(0,67),10);
+    this.y = 0;
+    this.s = parseInt(random(speed,100*speed),10)/10;
+    if(this.s < 0.1){
+        this.s = 0.1;
+    }
+    if(c === "dirt"){
+    this.c = color(random(65,95),random(10,50),random(0,20));
+    }
+    if(c === "rand"){
+        this.c = color(random(0,255),random(0,255),random(0,255));
+    }
+    if(c === "red"){
+        this.c = color(255, 0, 0);
+    }
+    if(c === "white"){
+        this.c = color(255,255,255);
+    }
+};
+p.prototype.draw = function() {
+    stroke(this.c);
+    point(this.x,this.y);
+    this.y+=this.s;
+    
+};
+
+var isFull = function(val){
+    if(val < -2){
+    
+    return true;    
+    }
+};
+var f = 30;
+draw = function() {
+    scale(6);
+    background(0, 0, 0);
+    if(frameCount > 150){
+        frameRate(500);    
+    }
+    if(frameCount > 300){
+        frameRate(700);
+    }
+    if(frameCount > 400){
+        frameRate(10);
+    }
+    for(var i = 0; i < ps.length; i++){
+        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
+            ps[i].y = xs[ps[i].x] + 1;
+            ps[i].s = 0;
+            xs[ps[i].x]--;
+        }
+        ps[i].draw();
+    }
+    if(!xs.every(isFull)){
+        while(speed < 12){
+        pN = new p();
+        if(xs[pN.x] >= -2){
+            ps.push(pN);
+        }
+        fill(255, 255, 255);
+        speed+=0.1;
+        }
+        speed = 0;
+        textSize(1.7);
+    }
+    //Draw YOU WIN
+    else{
+        //Shift puzzle down block by block.
+    }
+    
+};
+
+
+   </script>
+   <canvas></canvas>
+   <a href="BouncingBall.html"><img src="RIGHT.jpg"></a>
+  </body>
+ </html>
