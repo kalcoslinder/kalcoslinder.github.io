@@ -159,9 +159,9 @@ draw = function() {
     //Draws the mouse ball
     if(mousePressed){
         launch = true;
-        mBallz = 2*camDist*(mBallHeight - camHeight)/(height-2*mouseY);
+        mBallz = 2*camDist*(mBallHeight - camHeight)/(height-2*mouseY+50);
         mBally = mBallHeight - radius;
-        mBallx = (mouseX-width/2)*mBallz/camDist;
+        mBallx = (mouseX-220-width/2)*mBallz/camDist;
         mBall = new Ball(mBallx,mBally,mBallz,radius,color(255, 0, 0));
         
         //Create an array that holds the last _ positions of the mouse
