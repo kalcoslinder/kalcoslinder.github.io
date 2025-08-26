@@ -1,16 +1,198 @@
+
 <!DOCTYPE html>
  <html>
   <head>
    <title>Kalcoslinder Portfolio</title>
-   <script type="text/javascript" src="processing-1.6.6.min.js"></script>
-   <link rel="stylesheet" href="css/main.css">
-   <script type="text/javascript" src="init.js"></script>
    <link rel = "icon" type = "image/png" href = "/grim.png" sizes = "16x16">
+   <script type="text/javascript" src="processing-1.6.6.min.js"></script>
+   <script type="text/javascript" src="init.js"></script>
+   <script type="text/css" src="main.css"></script>
+   <link rel="stylesheet" href="main.css">
   </head>
   <body>
-  <a href="stickman.html"><img src="LEFT.jpg"></a>
+<!-- Snow Background -->
+
+<script type="application/processing">
+void setup(){
+width = 400;
+height = 400;
+}
+
+/*****FALLING SNOW******/
+//A simple program designed to mimic falling snow
+/****INSTRUCTIONS******/
+//Left click - snowstorm!
+//Right click - zoom in (toggle)
+
+stroke(255,255,255);
+var xs = []; // 398 - xs[col] = row
+frameRate(30);
+var speed = 0.1;
+var c = "rand";
+var pN;
+var ps = [];
+var rate = 1;
+var oldX = 0; 
+var oldY = 0;
+var zoom = false;
+for(var i = 0; i < 400; i++){
+    xs.push(400-1);
+}
+
+var p = function(){
+    this.x = parseInt(random(0,400),10);
+    this.y = 0;
+    this.s = parseInt(random(1*speed,100*speed),10)/10;
+    if(this.s < 0.1){
+        this.s = 0.1;
+    }
+    if(c === "dirt"){
+    this.c = color(random(65,95),random(10,50),random(0,20));
+    }
+    if(c === "rand"){
+    this.c = color(random(0,255),random(0,255),random(0,255));
+    }
+    if(c === "red"){
+        this.c = color(255, 0, 0);
+    }
+    if(c === "white"){
+        this.c = color(255,255,255);
+    }
+};
+p.prototype.draw = function() {
+    stroke(this.c);
+    point(this.x,this.y-1);
+    this.y+=this.s;
+};
+
+var isFull = function(val){
+    if(val < -2){
+    
+    return true;    
+    }
+};
+
+draw = function() {
+    background(0, 0, 0);
+    scale(1);
+    for(var i = 0; i < ps.length; i++){
+        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
+            ps[i].y = xs[ps[i].x] + 1;
+            ps[i].sr = 0;
+            ps[i].s = 0;
+            xs[ps[i].x]--;
+            
+            var r = parseInt(random(0,2),10);
+            var chi = -1;
+            if(r === 0){
+                //check left 
+                chi = -1;
+            }
+            if(r === 1){
+                //check right
+                chi = 1;
+            }
+            var run = false;
+            for( var a = 0; a < 2; a++){
+                if(chi === -1 && ps[i].x > 2){
+                    run = true;
+                }
+                if(chi === 1 && ps[i].x < 399){
+                    run = true;
+                }
+                //println(400-ps[i].y - (398 - xs[ps[i].x + chi]));
+               // if(run && random(0,1+400-ps[i].y - (398 - xs[ps[i].x + chi])) > 1){
+                
+                if (run && 400-ps[i].y - (398 - xs[ps[i].x + chi]) > 1 ){ //2 higher than left or right
+                    
+                        xs[ps[i].x] ++;
+                        //ps[i].c = color(255,0,0);
+                        ps[i].x += chi;
+                        //ps[i].y += 1;
+                        ps[i].s = 0.1;
+                        
+                    
+    
+                }
+                
+                chi*=-1;
+            }
+        }
+        ps[i].draw();
+    }
+    if(!xs.every(isFull)){
+        while(speed < rate){
+        pN = new p();
+        if(xs[pN.x] >= -2){
+            ps.push(pN);
+        }
+        fill(255, 255, 255);
+        speed++;
+        }
+        speed = 0.1;
+    }
+};
+
+mousePressed = function(){
+    if(mouseButton === RIGHT && zoom === false){
+    oldX = mouseX;
+    oldY = mouseY;
+    pushMatrix();
+    translate(200-mouseX,mouseY-200);
+    scale(5);
+    translate(-mouseX,-mouseY);
+    zoom = true;
+    }
+    else if(mouseButton === RIGHT && zoom === true){
+        popMatrix();
+        oldX = 0;
+        oldY = 0;
+        zoom = false;
+    }
+    
+    
+    for(var i = 0; i < ps.length; i++){
+        ps[i].s *= 12;    
+    }
+    speed = 20;
+    rate = 12;
+};
+
+mouseReleased = function(){
+    for(var i = 0; i < ps.length; i++){
+        ps[i].s /= 12;    
+    }
+    speed = random(0.1,1);
+    rate = 1;
+};
+
+keyPressed = function(){
+    if(keyCode - 48 === 1){
+        c = "rand";
+    }
+    if(keyCode - 48 === 2){
+        c = "red";
+    }
+    if(keyCode - 48 === 3){
+        c = "white";
+    }
+    if(keyCode - 48 === 0){
+        println(frameCount);
+    
+    
+    }
+};
+
+
+
+
+</script>
+<canvas id = "myBackground">
+</canvas>
+
+<!--The Processing Code-->
    <script type="application/processing">
-   void setup(){
+void setup(){
     size(400,400);
 }
 stroke(255,255,255);
@@ -19,6 +201,102 @@ var y = 0;
 var xs = [];
 frameRate(30);
 var speed = 0.1;
+var c = "rand";
+var sf = 6;
+var pN;
+var ps = [];
+
+for(var i = 0; i < 67; i++){
+    xs.push(67-2);
+}
+
+var p = function(){
+    this.x = parseInt(random(0,67),10);
+    this.y = 0;
+    this.s = parseInt(random(speed,100*speed),10)/10;
+    if(this.s < 0.1){
+        this.s = 0.1;
+    }
+    if(c === "dirt"){
+    this.c = color(random(65,95),random(10,50),random(0,20));
+    }
+    if(c === "rand"){
+        this.c = color(random(0,255),random(0,255),random(0,255));
+    }
+    if(c === "red"){
+        this.c = color(255, 0, 0);
+    }
+    if(c === "white"){
+        this.c = color(255,255,255);
+    }
+};
+p.prototype.draw = function() {
+    stroke(this.c);
+    point(this.x,this.y);
+    this.y+=this.s;
+    
+};
+
+var isFull = function(val){
+    if(val < -2){
+    
+    return true;    
+    }
+};
+var f = 30;
+draw = function() {
+    scale(6);
+    background(0, 0, 0);
+    if(frameCount > 150){
+        frameRate(500);    
+    }
+    if(frameCount > 300){
+        frameRate(700);
+    }
+    if(frameCount > 400){
+        frameRate(10);
+    }
+    for(var i = 0; i < ps.length; i++){
+        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
+            ps[i].y = xs[ps[i].x] + 1;
+            ps[i].s = 0;
+            xs[ps[i].x]--;
+        }
+        ps[i].draw();
+    }
+    if(!xs.every(isFull)){
+        while(speed < 12){
+        pN = new p();
+        if(xs[pN.x] >= -2){
+            ps.push(pN);
+        }
+        fill(255, 255, 255);
+        speed+=0.1;
+        }
+        speed = 0;
+        textSize(1.7);
+    }
+    //Draw YOU WIN
+    else{
+        //Shift puzzle down block by block.
+    }
+    
+};
+
+
+   </script>
+   <canvas></canvas>
+   
+   <a href="BouncingBall.html"><h1>Bounce</h1></a>
+
+   <a href="Blocks.html"><h1>Blocks</h1></a>
+
+   <a href="Snowfall.html"><h1>Snowfall</h1></a>
+
+   <a href="Stickman.html><h1>Stick Simulator</h1></a>
+
+  </body>
+ </html>
 var c = "rand";
 var sf = 6;
 var pN;
