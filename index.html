@@ -1,9 +1,7 @@
-
 <!DOCTYPE html>
  <html>
   <head>
-   <title>Kalcoslinder Portfolio</title>
-   <link rel = "icon" type = "image/png" href = "/grim.png" sizes = "16x16">
+   <title>Processing.js Template </title>
    <script type="text/javascript" src="processing-1.6.6.min.js"></script>
    <script type="text/javascript" src="init.js"></script>
    <script type="text/css" src="main.css"></script>
@@ -14,8 +12,8 @@
 
 <script type="application/processing">
 void setup(){
-width = 800;
-height = 800;
+width = 400;
+height = 400;
 }
 
 /*****FALLING SNOW******/
@@ -295,93 +293,5 @@ draw = function() {
 
    <a href="Stickman.html><h1>Stick Simulator</h1></a>
 
-  </body>
- </html>
-var c = "rand";
-var sf = 6;
-var pN;
-var ps = [];
-
-for(var i = 0; i < 67; i++){
-    xs.push(67-2);
-}
-
-var p = function(){
-    this.x = parseInt(random(0,67),10);
-    this.y = 0;
-    this.s = parseInt(random(speed,100*speed),10)/10;
-    if(this.s < 0.1){
-        this.s = 0.1;
-    }
-    if(c === "dirt"){
-    this.c = color(random(65,95),random(10,50),random(0,20));
-    }
-    if(c === "rand"){
-        this.c = color(random(0,255),random(0,255),random(0,255));
-    }
-    if(c === "red"){
-        this.c = color(255, 0, 0);
-    }
-    if(c === "white"){
-        this.c = color(255,255,255);
-    }
-};
-p.prototype.draw = function() {
-    stroke(this.c);
-    point(this.x,this.y);
-    this.y+=this.s;
-    
-};
-
-var isFull = function(val){
-    if(val < -2){
-    
-    return true;    
-    }
-};
-var f = 30;
-draw = function() {
-    scale(6);
-    background(0, 0, 0);
-    if(frameCount > 150){
-        frameRate(500);    
-    }
-    if(frameCount > 300){
-        frameRate(700);
-    }
-    if(frameCount > 400){
-        frameRate(10);
-    }
-    for(var i = 0; i < ps.length; i++){
-        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
-            ps[i].y = xs[ps[i].x] + 1;
-            ps[i].s = 0;
-            xs[ps[i].x]--;
-        }
-        ps[i].draw();
-    }
-    if(!xs.every(isFull)){
-        while(speed < 12){
-        pN = new p();
-        if(xs[pN.x] >= -2){
-            ps.push(pN);
-        }
-        fill(255, 255, 255);
-        speed+=0.1;
-        }
-        speed = 0;
-        textSize(1.7);
-    }
-    //Draw YOU WIN
-    else{
-        //Shift puzzle down block by block.
-    }
-    
-};
-
-
-   </script>
-   <canvas></canvas>
-   <a href="BouncingBall.html"><img src="RIGHT.jpg"></a>
   </body>
  </html>
