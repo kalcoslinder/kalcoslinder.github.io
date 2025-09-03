@@ -1,0 +1,182 @@
+html {
+    text-decoration: none;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    margin: 40px auto;
+    width: 70%;
+    text-decoration: none;
+    color: #111;
+    padding: 0px;
+    list-style: none;
+    font-weight: bold;
+    scroll-behavior: smooth;
+    background-color: #111;
+}
+
+ #myBackground {
+        position: fixed; /* or absolute */
+        top: 0;
+        left: 0;
+        width: 100vw; /* Viewport width */
+        height: 100vh; /* Viewport height */
+        z-index: -1; /* Place it behind other elements */
+    }
+
+.GamesList {
+ list-style-type: none;
+ margin: 0;
+ padding 10;
+}
+    .dropbtn {
+    background-color: black;
+    color: white;
+    padding: #px;
+    font-size: #px;
+    border: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: lightgrey;
+    min-width: #px;
+    z-index: 1;
+}
+
+.canvas {
+  margin-top: 20px;
+  margin-left: 100px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: #px #px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: white;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: grey;}
+
+}div.element1 {
+    position: relative;
+    left: 20px;
+    width: 200px;
+    height: 200px;
+}
+div.element2 {
+    position: relative;
+    left:300px;
+    width: 200px;
+    height: 200px;
+}
+body {
+    margin: 60px auto;
+    width: 70%;
+    text-decoration: none;
+    color: #999;
+}
+nav ul, footer ul, header ul{
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    padding: 0px;
+    list-style: none;
+    font-weight: bold;
+}
+nav ul li, footer ul li, header ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1 {
+    font-size: 3em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+p {
+    font-size: 1.5em;
+    line-height: 1.4em;
+    color: #333;
+}
+audio controls{
+ margin: 0px;
+    padding: 0px;
+}
+footer, header {
+    border-top: 1px solid #d5d5d5;
+    font-size: .8em;
+}
+ul.posts { 
+    margin: 20px auto 40px; 
+    font-size: 1.5em;
+}
+
+ul.posts li {
+    list-style: none;
+}
+/* Style the header */
+.header {
+  padding: 10px 16px;
+  
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 102px;
+}
+
+.vertical-menu a {
+  background-color: #eee; /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+  background-color: black; /* Add a black color to the "active/current" link */
+  color: white;
+}
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 150; /* 200 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+}
