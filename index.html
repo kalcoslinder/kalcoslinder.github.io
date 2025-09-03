@@ -1,234 +1,297 @@
-
-
 <!DOCTYPE html>
  <html>
   <head>
-   <title>Kalcoslinder Portfolio 3.0 </title>
-
-	  
-	<link rel = "icon" type = "image/png" href = "/grim.png" sizes = "16x16">
-	<link rel = "stylesheet" type = "text/css" href = "/css/main.css" >
+   <title>Processing.js Template </title>
    <script type="text/javascript" src="processing-1.6.6.min.js"></script>
    <script type="text/javascript" src="init.js"></script>
+   <script type="text/css" src="main.css"></script>
+   <link rel="stylesheet" href="main.css">
   </head>
   <body>
+<!-- Snow Background -->
+
+<script type="application/processing">
+void setup(){
+width = 400;
+height = 400;
+}
+
+/*****FALLING SNOW******/
+//A simple program designed to mimic falling snow
+/****INSTRUCTIONS******/
+//Left click - snowstorm!
+//Right click - zoom in (toggle)
+
+stroke(255,255,255);
+var xs = []; // 398 - xs[col] = row
+frameRate(30);
+var speed = 0.1;
+var c = "rand";
+var pN;
+var ps = [];
+var rate = 1;
+var oldX = 0; 
+var oldY = 0;
+var zoom = false;
+for(var i = 0; i < 400; i++){
+    xs.push(400-1);
+}
+
+var p = function(){
+    this.x = parseInt(random(0,400),10);
+    this.y = 0;
+    this.s = parseInt(random(1*speed,100*speed),10)/10;
+    if(this.s < 0.1){
+        this.s = 0.1;
+    }
+    if(c === "dirt"){
+    this.c = color(random(65,95),random(10,50),random(0,20));
+    }
+    if(c === "rand"){
+    this.c = color(random(0,255),random(0,255),random(0,255));
+    }
+    if(c === "red"){
+        this.c = color(255, 0, 0);
+    }
+    if(c === "white"){
+        this.c = color(255,255,255);
+    }
+};
+p.prototype.draw = function() {
+    stroke(this.c);
+    point(this.x,this.y-1);
+    this.y+=this.s;
+};
+
+var isFull = function(val){
+    if(val < -2){
+    
+    return true;    
+    }
+};
+
+draw = function() {
+    background(0, 0, 0);
+    scale(1);
+    for(var i = 0; i < ps.length; i++){
+        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
+            ps[i].y = xs[ps[i].x] + 1;
+            ps[i].sr = 0;
+            ps[i].s = 0;
+            xs[ps[i].x]--;
+            
+            var r = parseInt(random(0,2),10);
+            var chi = -1;
+            if(r === 0){
+                //check left 
+                chi = -1;
+            }
+            if(r === 1){
+                //check right
+                chi = 1;
+            }
+            var run = false;
+            for( var a = 0; a < 2; a++){
+                if(chi === -1 && ps[i].x > 2){
+                    run = true;
+                }
+                if(chi === 1 && ps[i].x < 399){
+                    run = true;
+                }
+                //println(400-ps[i].y - (398 - xs[ps[i].x + chi]));
+               // if(run && random(0,1+400-ps[i].y - (398 - xs[ps[i].x + chi])) > 1){
+                
+                if (run && 400-ps[i].y - (398 - xs[ps[i].x + chi]) > 1 ){ //2 higher than left or right
+                    
+                        xs[ps[i].x] ++;
+                        //ps[i].c = color(255,0,0);
+                        ps[i].x += chi;
+                        //ps[i].y += 1;
+                        ps[i].s = 0.1;
+                        
+                    
+    
+                }
+                
+                chi*=-1;
+            }
+        }
+        ps[i].draw();
+    }
+    if(!xs.every(isFull)){
+        while(speed < rate){
+        pN = new p();
+        if(xs[pN.x] >= -2){
+            ps.push(pN);
+        }
+        fill(255, 255, 255);
+        speed++;
+        }
+        speed = 0.1;
+    }
+};
+
+mousePressed = function(){
+    if(mouseButton === RIGHT && zoom === false){
+    oldX = mouseX;
+    oldY = mouseY;
+    pushMatrix();
+    translate(200-mouseX,mouseY-200);
+    scale(5);
+    translate(-mouseX,-mouseY);
+    zoom = true;
+    }
+    else if(mouseButton === RIGHT && zoom === true){
+        popMatrix();
+        oldX = 0;
+        oldY = 0;
+        zoom = false;
+    }
+    
+    
+    for(var i = 0; i < ps.length; i++){
+        ps[i].s *= 12;    
+    }
+    speed = 20;
+    rate = 12;
+};
+
+mouseReleased = function(){
+    for(var i = 0; i < ps.length; i++){
+        ps[i].s /= 12;    
+    }
+    speed = random(0.1,1);
+    rate = 1;
+};
+
+keyPressed = function(){
+    if(keyCode - 48 === 1){
+        c = "rand";
+    }
+    if(keyCode - 48 === 2){
+        c = "red";
+    }
+    if(keyCode - 48 === 3){
+        c = "white";
+    }
+    if(keyCode - 48 === 0){
+        println(frameCount);
+    
+    
+    }
+};
+
+
+
+
+</script>
+<canvas id = "myBackground">
+</canvas>
+
+<!--The Processing Code-->
    <script type="application/processing">
-   void setup(){
+void setup(){
     size(400,400);
 }
-var camHeight = 165;
-var camDist = 100;
-var radius = 20;
-var mBallHeight = radius + 107;
-var debugMenu = false;
-var speedX,speedZ;
-var speedY = 0;
-var mousePos = [];
-var speedMultiplier = 0.1;
-var bounceMultiplier = 1;
-var launch = false;
+stroke(255,255,255);
+var x = 0;
+var y = 0;
+var xs = [];
+frameRate(30);
+var speed = 0.1;
+var c = "rand";
+var sf = 6;
+var pN;
+var ps = [];
 
-var Point = function(Wx,Wy,Wz)
-{
-    this.Wx = Wx;
-    this.Wy = Wy;
-    this.Wz = Wz;
-    this.Sx = 0;
-    this.Sy = 0;
-    this.ShadowY = 0;
-    this.height = 0;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.speedZ = 0;
-};
+for(var i = 0; i < 67; i++){
+    xs.push(67-2);
+}
 
-Point.prototype.updatePoint = function()
-{
-    //Update the point's position according to its speed
-    this.Wx += this.speedX;
-    this.Wy += this.speedY;
-    this.Wz += this.speedZ;
-    
-    /*Change the world coordinates to camera coordinates by shifting y pos
-    Dilate the camera coordinates by the z distance and focus length
-    Normalize the screen coordinates
-    Put the normalized coordinates in view (raster space)*/
-    this.Sx = ((this.Wx/this.Wz*camDist) + width/2);
-    this.Sy = height/2-((this.Wy-camHeight)/this.Wz*camDist);
-    this.ShadowY = (1-(((-camHeight/this.Wz*camDist) + height/2)/height))*height;
-};
-
-Point.prototype.drawPoint = function()
-{
-    stroke(0, 0, 0);
-    strokeWeight(5);
-    point(this.Sx,this.Sy);
-    stroke(255, 0, 0);
-    point(this.Sx,this.ShadowY);
-    stroke(0, 0, 0);
-    strokeWeight(2);
-};
-
-var drawPoint = function(Wx,Wy,Wz)
-{
-    stroke(0, 0, 0);
-    strokeWeight(2);
-    var Sx = ((Wx/Wz*camDist) + width/2);
-    var Sy = height/2-((Wy-camHeight)/Wz*camDist);
-    point(Sx,Sy);
-};
-
-var Ball = function(x,y,z,r,color) {
-    this.center = new Point(x,r+y,z);
-    this.Wr = r;
-    this.Sr = 0;
-    this.height = 1;
-    this.scale = 1;
-    this.color = color;
-    this.accelerationY = -1;
-    this.bounce = 0;
-};
-
-Ball.prototype.updateBall = function() {
-    this.center.speedY += this.accelerationY;
-    
-    this.center.updatePoint();
-    this.Sr = this.Wr*camDist/this.center.Wz;
-    this.height = this.center.Wy-this.Wr;
-    this.scale = 0.9/(this.height/300+1);
-    
-};
-
-Ball.prototype.checkBall = function() {
-    if(this.bounce < 10){
-        if(this.height < 0){
-            this.center.Wy = this.Wr;
-            this.center.speedY *= -bounceMultiplier;
-            this.bounce++;
-        }
-        else{
-            this.bounce = 0;
-        }
+var p = function(){
+    this.x = parseInt(random(0,67),10);
+    this.y = 0;
+    this.s = parseInt(random(speed,100*speed),10)/10;
+    if(this.s < 0.1){
+        this.s = 0.1;
     }
-    else{
-        this.center.Wy = this.Wr;
-        this.center.speedY = 0;
-        this.accelerationY = 0;
+    if(c === "dirt"){
+    this.c = color(random(65,95),random(10,50),random(0,20));
     }
-    if(this.center.Wz > 10000){
-        this.center.Wz = 10000;
-        this.center.speedX = 0;
-        this.center.speedY = 0;
-        this.center.speedZ = 0;
+    if(c === "rand"){
+        this.c = color(random(0,255),random(0,255),random(0,255));
+    }
+    if(c === "red"){
+        this.c = color(255, 0, 0);
+    }
+    if(c === "white"){
+        this.c = color(255,255,255);
     }
 };
-
-Ball.prototype.drawBall = function() {
-    //Draw Shadow
-    strokeWeight(2);
-    fill(0, 0, 0);
-    ellipse(this.center.Sx,this.center.ShadowY,2*this.Sr*this.scale,this.Sr*this.scale);
-    stroke(0, 0, 0);
+p.prototype.draw = function() {
+    stroke(this.c);
+    point(this.x,this.y);
+    this.y+=this.s;
     
-    //Draw Ball
-    strokeWeight(3);
-    fill(this.color);
-    ellipse(this.center.Sx,this.center.Sy,this.Sr*2,this.Sr*2);
 };
 
-
-
-//Create new objects
-var ball = new Ball(0,56,142,radius,color(27, 27, 191));
-var mBallx = 0;
-var mBally = 0;
-var mBallz = 0;
-var mBall = new Ball(mBallx,mBally,mBallz,radius,color(255, 0, 0));
-
-/***************************************************************DRAW FUNCTION*/
+var isFull = function(val){
+    if(val < -2){
+    
+    return true;    
+    }
+};
+var f = 30;
 draw = function() {
-    //Draws the background
-    strokeWeight(2);
-    background(58, 104, 252);
-    fill(135, 181, 75);
-    rect(-1,200,402,202);
-
-   
-    
-    
-    //Draws the mouse ball
-    if(mousePressed){
-        launch = true;
-        mBallz = 2*camDist*(mBallHeight - camHeight)/(height-2*mouseY+50);
-        mBally = mBallHeight - radius;
-        mBallx = (mouseX-220-width/2)*mBallz/camDist;
-        mBall = new Ball(mBallx,mBally,mBallz,radius,color(255, 0, 0));
-        
-        //Create an array that holds the last _ positions of the mouse
-        mousePos.push([mouseX,mouseY]);    
-        if(mousePos.length > 10) {
-            mousePos.splice(0, 1);    
-        } 
+    scale(6);
+    background(0, 0, 0);
+    if(frameCount > 150){
+        frameRate(500);    
     }
-    //When mouse is released sets the speed of the ball
-    else{
-         //Set the initial velocities
-        if(launch)
-        {
-            mBall.center.speedX = speedX;
-            mBall.center.speedZ = speedZ;
-            mBall.center.speedY = speedY;
-            launch = false;
+    if(frameCount > 300){
+        frameRate(700);
+    }
+    if(frameCount > 400){
+        frameRate(10);
+    }
+    for(var i = 0; i < ps.length; i++){
+        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
+            ps[i].y = xs[ps[i].x] + 1;
+            ps[i].s = 0;
+            xs[ps[i].x]--;
         }
-        
+        ps[i].draw();
     }
-    mBall.updateBall();
-    mBall.checkBall();
-    mBall.drawBall();
-
-    
-     
-};
-
-
-
-
-
-void mouseDragged() {
-    
-    for(var i = 0; i < mousePos.length; i++)
-    {
-    strokeWeight(3);
-    stroke(237, 150, 236);
-    point(mousePos[i][0],mousePos[i][1]);
-    stroke(0, 0, 0);    
+    if(!xs.every(isFull)){
+        while(speed < 12){
+        pN = new p();
+        if(xs[pN.x] >= -2){
+            ps.push(pN);
+        }
+        fill(255, 255, 255);
+        speed+=0.1;
+        }
+        speed = 0;
+        textSize(1.7);
     }
-}; 
-
-void mouseReleased() {
-    speedX = speedMultiplier*(mousePos[mousePos.length-1][0] - mousePos[0][0]);
-    speedZ = speedMultiplier*(-1*mousePos[mousePos.length-1][1] + mousePos[0][1]);
-    var Wzi = camHeight*camDist/(mousePos[0][1]-height/2);
-    var Wzf = camHeight*camDist/(mousePos[mousePos.length-1][1]-height/2);
-    speedZ = speedMultiplier*(Wzf - Wzi);
-    var Wxi = (mousePos[0][0]-width/2)*Wzi/camDist;
-    var Wxf = (mousePos[mousePos.length-1][0]-width/2)*Wzf/camDist;
-    speedX = speedMultiplier*(Wxf - Wxi);
-    mousePos.length = 0;
-      
-}; 
-
-void mouseOut() {
-    mousePos.length = 0; 
-}; 
-
-void mousePressed() {
-    mousePos.length = 0;
+    //Draw YOU WIN
+    else{
+        //Shift puzzle down block by block.
+    }
     
 };
 
 
    </script>
    <canvas></canvas>
+   
+   <a href="BouncingBall.html"><h1>Bounce</h1></a>
+
+   <a href="Blocks.html"><h1>Blocks</h1></a>
+
+   <a href="Snowfall.html"><h1>Snowfall</h1></a>
+
+   <a href="Stickman.html><h1>Stick Simulator</h1></a>
+
   </body>
  </html>
