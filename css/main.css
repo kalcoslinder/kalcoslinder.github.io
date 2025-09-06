@@ -12,7 +12,21 @@ html {
     scroll-behavior: smooth;
     background-color: #111;
 }
-    
+        #backgroundCanvas {
+        position: fixed; /* Position relative to the viewport */
+        top: 0;
+        left: 0;
+        width: 100vw; /* Cover full viewport width */
+        height: 100vh; /* Cover full viewport height */
+        z-index: -1; /* Place behind other content */
+    }
+
+    .content {
+        position: relative; /* Position relative to its normal flow */
+        z-index: 1; /* Place on top of the canvas */
+        padding: 20px;
+        color: white; /* Example text color for visibility */
+    }
 }div.element1 {
     position: relative;
     left:20px;
@@ -26,10 +40,11 @@ div.element2 {
     height: 200px;
 }
 body {
-    margin: 60px auto;
+    margin: 0px auto;
     width: 70%;
     text-decoration: none;
     color: #999;
+    overflow: hidden;
 }
 nav ul, footer ul, header ul{
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
