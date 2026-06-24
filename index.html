@@ -1,259 +1,161 @@
 <!DOCTYPE html>
- <html>
-  <head>
-   <title>Processing.js Template </title>
-   <script type="text/javascript" src="processing-1.6.6.min.js"></script>
-   <script type="text/javascript" src="init.js"></script>
-   <script type="text/css" src="main.css"></script>
-   <link rel="stylesheet" href="main.css">
-  </head>
-  <body>
-<!-- Snow Background -->
+<html>
+<head>
+  <title>Processing.js Template</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
 
-<script type="application/processing">
-void setup(){
-width = 400;
-height = 400;
-}
+    #snowCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 
-/*****FALLING SNOW******/
-//A simple program designed to mimic falling snow
-/****INSTRUCTIONS******/
-//Left click - snowstorm!
-//Right click - zoom in (toggle)
+    #app-stage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
 
+    #app-window {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    .app-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      transition: transform 0.6s cubic-bezier(0.77,0,0.175,1), opacity 0.6s ease;
+      will-change: transform, opacity;
+    }
+
+    .app-slide.active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .app-slide.exit-left {
+      transform: translateX(-460px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .app-slide.exit-right {
+      transform: translateX(460px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .app-slide.enter-left {
+      transform: translateX(-460px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .app-slide.enter-right {
+      transform: translateX(460px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.4);
+      color: #fff;
+      font-size: 28px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.8);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background snow -->
+<canvas id="snowCanvas"></canvas>
+
+<!-- App stage: left button, app window, right button -->
+<div id="app-stage">
+  <button class="nav-btn" id="btnLeft">&#9664;</button>
+
+  <div id="app-window">
+    <!-- App 0: Snow sketch -->
+    <div class="app-slide active" id="app-0">
+      <canvas id="snowSketch" width="400" height="400"></canvas>
+    </div>
+    <!-- App 1: Bouncing ball -->
+    <div class="app-slide enter-right" id="app-1">
+      <canvas id="ballSketch" width="400" height="400"></canvas>
+    </div>
+  </div>
+
+  <button class="nav-btn" id="btnRight">&#9654;</button>
+</div>
+
+<!-- Snow sketch Processing code -->
+<script type="application/processing" data-processing-target="snowSketch">
+void setup(){ size(400,400); }
 stroke(255,255,255);
-var xs = []; // 398 - xs[col] = row
-frameRate(30);
-var speed = 0.1;
-var c = "rand";
-var pN;
-var ps = [];
-var rate = 1;
-var oldX = 0; 
-var oldY = 0;
-var zoom = false;
-for(var i = 0; i < 400; i++){
-    xs.push(400-1);
-}
-
-var p = function(){
-    this.x = parseInt(random(0,400),10);
-    this.y = 0;
-    this.s = parseInt(random(1*speed,100*speed),10)/10;
-    if(this.s < 0.1){
-        this.s = 0.1;
-    }
-    if(c === "dirt"){
-    this.c = color(random(65,95),random(10,50),random(0,20));
-    }
-    if(c === "rand"){
-    this.c = color(random(0,255),random(0,255),random(0,255));
-    }
-    if(c === "red"){
-        this.c = color(255, 0, 0);
-    }
-    if(c === "white"){
-        this.c = color(255,255,255);
-    }
-};
-p.prototype.draw = function() {
-    stroke(this.c);
-    point(this.x,this.y-1);
-    this.y+=this.s;
-};
-
-var isFull = function(val){
-    if(val < -2){
-    
-    return true;    
-    }
-};
-
-draw = function() {
-    background(0, 0, 0);
-    scale(1);
-    for(var i = 0; i < ps.length; i++){
-        if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
-            ps[i].y = xs[ps[i].x] + 1;
-            ps[i].sr = 0;
-            ps[i].s = 0;
-            xs[ps[i].x]--;
-            
-            var r = parseInt(random(0,2),10);
-            var chi = -1;
-            if(r === 0){
-                //check left 
-                chi = -1;
-            }
-            if(r === 1){
-                //check right
-                chi = 1;
-            }
-            var run = false;
-            for( var a = 0; a < 2; a++){
-                if(chi === -1 && ps[i].x > 2){
-                    run = true;
-                }
-                if(chi === 1 && ps[i].x < 399){
-                    run = true;
-                }
-                //println(400-ps[i].y - (398 - xs[ps[i].x + chi]));
-               // if(run && random(0,1+400-ps[i].y - (398 - xs[ps[i].x + chi])) > 1){
-                
-                if (run && 400-ps[i].y - (398 - xs[ps[i].x + chi]) > 1 ){ //2 higher than left or right
-                    
-                        xs[ps[i].x] ++;
-                        //ps[i].c = color(255,0,0);
-                        ps[i].x += chi;
-                        //ps[i].y += 1;
-                        ps[i].s = 0.1;
-                        
-                    
-    
-                }
-                
-                chi*=-1;
-            }
-        }
-        ps[i].draw();
-    }
-    if(!xs.every(isFull)){
-        while(speed < rate){
-        pN = new p();
-        if(xs[pN.x] >= -2){
-            ps.push(pN);
-        }
-        fill(255, 255, 255);
-        speed++;
-        }
-        speed = 0.1;
-    }
-};
-
-mousePressed = function(){
-    if(mouseButton === RIGHT && zoom === false){
-    oldX = mouseX;
-    oldY = mouseY;
-    pushMatrix();
-    translate(200-mouseX,mouseY-200);
-    scale(5);
-    translate(-mouseX,-mouseY);
-    zoom = true;
-    }
-    else if(mouseButton === RIGHT && zoom === true){
-        popMatrix();
-        oldX = 0;
-        oldY = 0;
-        zoom = false;
-    }
-    
-    
-    for(var i = 0; i < ps.length; i++){
-        ps[i].s *= 12;    
-    }
-    speed = 20;
-    rate = 12;
-};
-
-mouseReleased = function(){
-    for(var i = 0; i < ps.length; i++){
-        ps[i].s /= 12;    
-    }
-    speed = random(0.1,1);
-    rate = 1;
-};
-
-keyPressed = function(){
-    if(keyCode - 48 === 1){
-        c = "rand";
-    }
-    if(keyCode - 48 === 2){
-        c = "red";
-    }
-    if(keyCode - 48 === 3){
-        c = "white";
-    }
-    if(keyCode - 48 === 0){
-        println(frameCount);
-    
-    
-    }
-};
-
-
-
-
-</script>
-<canvas id = "myBackground">
-</canvas>
-
-<!--The Processing Code-->
-   <script type="application/processing">
-void setup(){
-    size(400,400);
-}
-stroke(255,255,255);
-var x = 0;
-var y = 0;
 var xs = [];
 frameRate(30);
 var speed = 0.1;
 var c = "rand";
-var sf = 6;
 var pN;
 var ps = [];
-
-for(var i = 0; i < 67; i++){
-    xs.push(67-2);
-}
-
+for(var i = 0; i < 67; i++){ xs.push(67-2); }
 var p = function(){
     this.x = parseInt(random(0,67),10);
     this.y = 0;
     this.s = parseInt(random(speed,100*speed),10)/10;
-    if(this.s < 0.1){
-        this.s = 0.1;
-    }
-    if(c === "dirt"){
-    this.c = color(random(65,95),random(10,50),random(0,20));
-    }
-    if(c === "rand"){
-        this.c = color(random(0,255),random(0,255),random(0,255));
-    }
-    if(c === "red"){
-        this.c = color(255, 0, 0);
-    }
-    if(c === "white"){
-        this.c = color(255,255,255);
-    }
+    if(this.s < 0.1){ this.s = 0.1; }
+    if(c === "rand"){ this.c = color(random(0,255),random(0,255),random(0,255)); }
+    if(c === "red"){ this.c = color(255, 0, 0); }
+    if(c === "white"){ this.c = color(255,255,255); }
 };
 p.prototype.draw = function() {
     stroke(this.c);
     point(this.x,this.y);
     this.y+=this.s;
-    
 };
-
-var isFull = function(val){
-    if(val < -2){
-    
-    return true;    
-    }
-};
-var f = 30;
+var isFull = function(val){ if(val < -2){ return true; } };
 draw = function() {
     scale(6);
     background(0, 0, 0);
-    if(frameCount > 150){
-        frameRate(500);    
-    }
-    if(frameCount > 300){
-        frameRate(700);
-    }
-    if(frameCount > 400){
-        frameRate(10);
-    }
+    if(frameCount > 150){ frameRate(500); }
+    if(frameCount > 300){ frameRate(700); }
+    if(frameCount > 400){ frameRate(10); }
     for(var i = 0; i < ps.length; i++){
         if(ps[i].y >= xs[ps[i].x] && ps[i].s !== 0){
             ps[i].y = xs[ps[i].x] + 1;
@@ -264,34 +166,252 @@ draw = function() {
     }
     if(!xs.every(isFull)){
         while(speed < 12){
-        pN = new p();
-        if(xs[pN.x] >= -2){
-            ps.push(pN);
-        }
-        fill(255, 255, 255);
-        speed+=0.1;
+            pN = new p();
+            if(xs[pN.x] >= -2){ ps.push(pN); }
+            fill(255,255,255);
+            speed+=0.1;
         }
         speed = 0;
         textSize(1.7);
     }
-    //Draw YOU WIN
-    else{
-        //Shift puzzle down block by block.
-    }
-    
+};
+</script>
+
+<!-- Ball sketch Processing code -->
+<script type="application/processing" data-processing-target="ballSketch">
+void setup(){ size(400,400); }
+var camHeight = 165;
+var camDist = 100;
+var radius = 20;
+var mBallHeight = radius + 107;
+var speedX,speedZ;
+var speedY = 0;
+var mousePos = [];
+var speedMultiplier = 0.1;
+var bounceMultiplier = 1;
+var launch = false;
+
+var Point = function(Wx,Wy,Wz){
+    this.Wx = Wx; this.Wy = Wy; this.Wz = Wz;
+    this.Sx = 0; this.Sy = 0; this.ShadowY = 0;
+    this.speedX = 0; this.speedY = 0; this.speedZ = 0;
+};
+Point.prototype.updatePoint = function(){
+    this.Wx += this.speedX;
+    this.Wy += this.speedY;
+    this.Wz += this.speedZ;
+    this.Sx = ((this.Wx/this.Wz*camDist) + width/2);
+    this.Sy = height/2-((this.Wy-camHeight)/this.Wz*camDist);
+    this.ShadowY = (1-(((-camHeight/this.Wz*camDist) + height/2)/height))*height;
 };
 
+var Ball = function(x,y,z,r,col){
+    this.center = new Point(x,r+y,z);
+    this.Wr = r; this.Sr = 0;
+    this.height = 1; this.scale = 1;
+    this.color = col;
+    this.accelerationY = -1;
+    this.bounce = 0;
+};
+Ball.prototype.updateBall = function(){
+    this.center.speedY += this.accelerationY;
+    this.center.updatePoint();
+    this.Sr = this.Wr*camDist/this.center.Wz;
+    this.height = this.center.Wy-this.Wr;
+    this.scale = 0.9/(this.height/300+1);
+};
+Ball.prototype.checkBall = function(){
+    if(this.bounce < 10){
+        if(this.height < 0){
+            this.center.Wy = this.Wr;
+            this.center.speedY *= -bounceMultiplier;
+            this.bounce++;
+        } else { this.bounce = 0; }
+    } else {
+        this.center.Wy = this.Wr;
+        this.center.speedY = 0;
+        this.accelerationY = 0;
+    }
+    if(this.center.Wz > 10000){
+        this.center.Wz = 10000;
+        this.center.speedX = 0;
+        this.center.speedY = 0;
+        this.center.speedZ = 0;
+    }
+};
+Ball.prototype.drawBall = function(){
+    strokeWeight(2);
+    fill(0,0,0);
+    ellipse(this.center.Sx,this.center.ShadowY,2*this.Sr*this.scale,this.Sr*this.scale);
+    strokeWeight(3);
+    fill(this.color);
+    ellipse(this.center.Sx,this.center.Sy,this.Sr*2,this.Sr*2);
+};
 
-   </script>
-   <canvas></canvas>
-   
-   <a href="BouncingBall.html"><h1>Bounce</h1></a>
+var mBall = new Ball(0,0,0,radius,color(255,0,0));
+var mBallx=0, mBally=0, mBallz=0;
 
-   <a href="Blocks.html"><h1>Blocks</h1></a>
+draw = function(){
+    strokeWeight(2);
+    background(58,104,252);
+    fill(135,181,75);
+    rect(-1,200,402,202);
+    if(mousePressed){
+        launch = true;
+        mBallz = 2*camDist*(mBallHeight-camHeight)/(height-2*mouseY+50);
+        mBally = mBallHeight-radius;
+        mBallx = (mouseX-220-width/2)*mBallz/camDist;
+        mBall = new Ball(mBallx,mBally,mBallz,radius,color(255,0,0));
+        mousePos.push([mouseX,mouseY]);
+        if(mousePos.length > 10){ mousePos.splice(0,1); }
+    } else {
+        if(launch){
+            mBall.center.speedX = speedX;
+            mBall.center.speedZ = speedZ;
+            mBall.center.speedY = speedY;
+            launch = false;
+        }
+    }
+    mBall.updateBall();
+    mBall.checkBall();
+    mBall.drawBall();
+};
 
-   <a href="Snowfall.html"><h1>Snowfall</h1></a>
+void mouseDragged(){
+    for(var i=0;i<mousePos.length;i++){
+        strokeWeight(3); stroke(237,150,236);
+        point(mousePos[i][0],mousePos[i][1]);
+        stroke(0,0,0);
+    }
+};
+void mouseReleased(){
+    if(mousePos.length < 2){ mousePos.length=0; return; }
+    var Wzi = camHeight*camDist/(mousePos[0][1]-height/2);
+    var Wzf = camHeight*camDist/(mousePos[mousePos.length-1][1]-height/2);
+    speedZ = speedMultiplier*(Wzf-Wzi);
+    var Wxi = (mousePos[0][0]-width/2)*Wzi/camDist;
+    var Wxf = (mousePos[mousePos.length-1][0]-width/2)*Wzf/camDist;
+    speedX = speedMultiplier*(Wxf-Wxi);
+    speedY = 0;
+    mousePos.length=0;
+};
+void mouseOut(){ mousePos.length=0; };
+void mousePressed(){ mousePos.length=0; };
+</script>
 
-   <a href="Stickman.html><h1>Stick Simulator</h1></a>
+<script>
+  // ── Background snow ──────────────────────────────────────────────
+  const bgCanvas = document.getElementById('snowCanvas');
+  const ctx = bgCanvas.getContext('2d');
+  let W, H, xs, ps;
 
-  </body>
- </html>
+  function init() {
+    W = bgCanvas.width = window.innerWidth;
+    H = bgCanvas.height = window.innerHeight;
+    xs = [];
+    for (let i = 0; i < W; i++) xs.push(H - 1);
+    ps = [];
+  }
+
+  function ri(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+  let colorMode = 'rand', rate = 1;
+
+  function randColor(m) {
+    if (m === 'rand') return `rgb(${ri(0,255)},${ri(0,255)},${ri(0,255)})`;
+    if (m === 'red')  return 'rgb(255,0,0)';
+    return 'rgb(255,255,255)';
+  }
+
+  function Particle() {
+    this.x = ri(0, W - 1);
+    this.y = 0;
+    this.s = Math.max(0.1, Math.floor(Math.random() * 10) / 10);
+    this.c = randColor(colorMode);
+  }
+  Particle.prototype.draw = function () {
+    ctx.strokeStyle = this.c;
+    ctx.beginPath(); ctx.rect(this.x, this.y - 1, 1, 1); ctx.stroke();
+    this.y += this.s;
+  };
+
+  function isFull(v) { return v < -2; }
+  function spawnParticles() {
+    let s = 0.1;
+    while (s < rate) {
+      const pN = new Particle();
+      if (xs[pN.x] >= -2) ps.push(pN);
+      s++;
+    }
+  }
+
+  function drawBg() {
+    ctx.fillStyle = 'rgb(0,0,0)';
+    ctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < ps.length; i++) {
+      const p = ps[i];
+      if (p.y >= xs[p.x] && p.s !== 0) {
+        p.y = xs[p.x] + 1; p.s = 0; xs[p.x]--;
+        let chi = Math.random() < 0.5 ? -1 : 1;
+        for (let a = 0; a < 2; a++) {
+          const nx = p.x + chi;
+          const inBounds = chi === -1 ? p.x > 2 : p.x < W - 2;
+          if (inBounds && (H - p.y) - (H - 1 - xs[nx]) > 1) {
+            xs[p.x]++; p.x = nx; p.s = 0.1; break;
+          }
+          chi *= -1;
+        }
+      }
+      p.draw();
+    }
+    if (!xs.every(isFull)) spawnParticles();
+    requestAnimationFrame(drawBg);
+  }
+
+  bgCanvas.addEventListener('mousedown', () => { for (let p of ps) p.s *= 12; rate = 12; });
+  bgCanvas.addEventListener('mouseup',   () => { for (let p of ps) p.s /= 12; rate = 1; });
+  document.addEventListener('keydown', e => {
+    if (e.key === '1') colorMode = 'rand';
+    if (e.key === '2') colorMode = 'red';
+    if (e.key === '3') colorMode = 'white';
+  });
+  window.addEventListener('resize', init);
+  init();
+  requestAnimationFrame(drawBg);
+
+  // ── App switcher ─────────────────────────────────────────────────
+  const apps = document.querySelectorAll('.app-slide');
+  let current = 0;
+  let animating = false;
+
+  function switchApp(direction) {
+    if (animating) return;
+    const next = (current + direction + apps.length) % apps.length;
+    if (next === current) return;
+    animating = true;
+
+    const outClass  = direction === 1 ? 'exit-left'  : 'exit-right';
+    const inStart   = direction === 1 ? 'enter-right' : 'enter-left';
+
+    // Position incoming app off-screen
+    apps[next].className = 'app-slide ' + inStart;
+
+    // Force reflow so the starting position registers before transitioning
+    apps[next].getBoundingClientRect();
+
+    // Trigger transitions
+    apps[current].className = 'app-slide ' + outClass;
+    apps[next].className    = 'app-slide active';
+
+    apps[next].addEventListener('transitionend', () => {
+      apps[current].className = 'app-slide enter-right'; // reset out-of-view
+      current = next;
+      animating = false;
+    }, { once: true });
+  }
+
+  document.getElementById('btnLeft').addEventListener('click',  () => switchApp(-1));
+  document.getElementById('btnRight').addEventListener('click', () => switchApp(1));
+</script>
+
+</body>
+</html>
